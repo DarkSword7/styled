@@ -2,7 +2,7 @@
 import { useQuery } from "@apollo/client";
 import { PRODUCT_QUERY } from "../../lib/query";
 
-import Image from "next/image";
+import Products from "@/components/Products";
 
 export default function Home() {
   const { data, loading, error } = useQuery(PRODUCT_QUERY, {
@@ -10,7 +10,6 @@ export default function Home() {
   });
 
   const products = data?.products.data;
-  console.log(products);
 
   if (loading) return <p>Loading...</p>;
 
@@ -22,20 +21,7 @@ export default function Home() {
       <main>
         <h1>Products</h1>
         {products.map((product) => (
-          <div key={product.attributes.title}>
-            <h2>{product.attributes.title}</h2>
-            <p>{product.attributes.description}</p>
-            <p>{product.attributes.price}</p>
-            <Image
-              src={
-                product.attributes.image.data.attributes.formats.thumbnail.url
-              }
-              alt={product.attributes.title}
-              width={200}
-              height={200}
-              priority
-            />
-          </div>
+          <Products key={product.attributes.slug} product={product} />
         ))}
       </main>
     </>
