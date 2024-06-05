@@ -15,7 +15,7 @@ export default function ProductDetails({ params }) {
   //   get the id from the params
   const { id } = params;
   //   get the quantity from the context
-  const { quantity, increaseQty, decreaseQty } = useStateContext();
+  const { quantity, increaseQty, decreaseQty, onAdd } = useStateContext();
   //   fetch the product data from the query
   const { data, loading, error } = useQuery(GET_PRODUCT_QUERY, {
     variables: { slug: id },
@@ -43,7 +43,9 @@ export default function ProductDetails({ params }) {
             <CirclePlus />
           </button>
         </Quantity>
-        <Buy>Add to Cart</Buy>
+        <Buy onClick={() => onAdd(data.products.data[0].attributes, quantity)}>
+          Add to Cart
+        </Buy>
       </ProductInfo>
     </DetailsStyle>
   );
