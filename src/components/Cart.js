@@ -7,11 +7,13 @@ import {
   Card,
   CardInfo,
   EmptyStyle,
+  Checkout,
 } from "../../styles/CartStyle";
 import { Quantity } from "../../styles/ProductDetails";
 
 export default function Cart() {
-  const { cartItems, setShowCart, onAdd, onRemove } = useStateContext();
+  const { cartItems, setShowCart, onAdd, onRemove, totalPrice } =
+    useStateContext();
 
   return (
     <CartWrapper onClick={() => setShowCart(false)}>
@@ -32,7 +34,7 @@ export default function Cart() {
                 />
                 <CardInfo>
                   <h3>{item.title}</h3>
-                  <h3>{item.price}</h3>
+                  <h3>₹{item.price}</h3>
                   <Quantity>
                     <span>Quantity</span>
                     <button onClick={() => onRemove(item)}>
@@ -47,6 +49,12 @@ export default function Cart() {
               </Card>
             );
           })}
+        {cartItems.length >= 1 && (
+          <Checkout>
+            <h3>Subtotal: ₹{totalPrice.toFixed(2)}</h3>
+            <button>Purchase</button>
+          </Checkout>
+        )}
       </CartStyle>
     </CartWrapper>
   );

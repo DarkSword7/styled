@@ -13,7 +13,7 @@ export const CartWrapper = styled.div`
 `;
 
 export const CartStyle = styled.div`
-  width: 45%;
+  width: 40%;
   background: #f1f1f1;
   padding: 2rem 5rem;
   overflow-y: scroll;
@@ -61,5 +61,23 @@ export const EmptyStyle = styled.div`
     width: 10rem;
     height: 10rem;
     color: var(--secondary);
+  }
+`;
+
+export const Checkout = styled.div`
+  button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    width: 100%;
+    margin-top: 2rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background: var(--secondary);
+    }
   }
 `;
