@@ -7,12 +7,11 @@ import {
   Card,
   CardInfo,
   EmptyStyle,
-  Quantity,
 } from "../../styles/CartStyle";
+import { Quantity } from "../../styles/ProductDetails";
 
 export default function Cart() {
-  const { cartItems, setShowCart, decreaseQty, increaseQty } =
-    useStateContext();
+  const { cartItems, setShowCart, onAdd, onRemove } = useStateContext();
 
   return (
     <CartWrapper onClick={() => setShowCart(false)}>
@@ -24,27 +23,30 @@ export default function Cart() {
           </EmptyStyle>
         )}
         {cartItems.length >= 1 &&
-          cartItems.map((item) => (
-            <Card key={item.slug}>
-              <img
-                src={item.image.data.attributes.formats.thumbnail.url}
-                alt={item.title}
-              />
-              <CardInfo>
-                <h3>{item.title}</h3>
-                <h3>{item.price}</h3>
-                <Quantity>
-                  <button onClick={decreaseQty}>
-                    <CircleMinus />
-                  </button>
-                  <p>{item.quantity}</p>
-                  <button onClick={increaseQty}>
-                    <CirclePlus />
-                  </button>
-                </Quantity>
-              </CardInfo>
-            </Card>
-          ))}
+          cartItems.map((item) => {
+            return (
+              <Card key={item.slug}>
+                <img
+                  src={item.image.data.attributes.formats.thumbnail.url}
+                  alt={item.title}
+                />
+                <CardInfo>
+                  <h3>{item.title}</h3>
+                  <h3>{item.price}</h3>
+                  <Quantity>
+                    <span>Quantity</span>
+                    <button onClick={() => onRemove(item)}>
+                      <CircleMinus />
+                    </button>
+                    <p>{item.quantity}</p>
+                    <button onClick={() => onAdd(item, 1)}>
+                      <CirclePlus />
+                    </button>
+                  </Quantity>
+                </CardInfo>
+              </Card>
+            );
+          })}
       </CartStyle>
     </CartWrapper>
   );
