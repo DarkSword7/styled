@@ -9,10 +9,13 @@ import {
   Buy,
 } from "../../../../styles/ProductDetails";
 import { CircleMinus, CirclePlus } from "lucide-react";
+import { useStateContext } from "../../../../lib/context";
 
 export default function ProductDetails({ params }) {
+  //   get the id from the params
   const { id } = params;
-
+  //   get the quantity from the context
+  const { quantity, increaseQty, decreaseQty } = useStateContext();
   //   fetch the product data from the query
   const { data, loading, error } = useQuery(GET_PRODUCT_QUERY, {
     variables: { slug: id },
@@ -32,11 +35,11 @@ export default function ProductDetails({ params }) {
 
         <Quantity>
           <span>Quantity</span>
-          <button>
+          <button onClick={decreaseQty}>
             <CircleMinus />
           </button>
-          <p>0</p>
-          <button>
+          <p>{quantity}</p>
+          <button onClick={increaseQty}>
             <CirclePlus />
           </button>
         </Quantity>
