@@ -11,11 +11,12 @@ import {
 } from "../../styles/CartStyle";
 
 export default function Cart() {
-  const { cartItems, increaseQty, decreaseQty, quantity } = useStateContext();
+  const { cartItems, setShowCart, decreaseQty, increaseQty } =
+    useStateContext();
 
   return (
-    <CartWrapper>
-      <CartStyle>
+    <CartWrapper onClick={() => setShowCart(false)}>
+      <CartStyle onClick={(e) => e.stopPropagation()}>
         {cartItems.length < 1 && (
           <EmptyStyle>
             <h1>You have more shopping to do 😉</h1>
