@@ -3,11 +3,10 @@ import { useQuery } from "@apollo/client";
 import { PRODUCT_QUERY } from "../../lib/query";
 
 import Products from "@/components/Products";
+import { Gallary } from "../../styles/Gallary";
 
 export default function Home() {
-  const { data, loading, error } = useQuery(PRODUCT_QUERY, {
-    variables: { id: 1000 },
-  });
+  const { data, loading, error } = useQuery(PRODUCT_QUERY);
 
   const products = data?.products.data;
 
@@ -20,9 +19,11 @@ export default function Home() {
       <title>Products</title>
       <main>
         <h1>Products</h1>
-        {products.map((product) => (
-          <Products key={product.attributes.slug} product={product} />
-        ))}
+        <Gallary>
+          {products.map((product) => (
+            <Products key={product.attributes.title} product={product} />
+          ))}
+        </Gallary>
       </main>
     </>
   );
