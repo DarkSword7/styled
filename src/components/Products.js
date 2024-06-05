@@ -10,12 +10,12 @@ export default function Products({ product }) {
   return (
     <ProductStyle>
       <Link href={`/product/${slug}`}>
-        <p>
+        <div>
           <img src={url} alt={title} />
-        </p>
-        <h2>{title}</h2>
-        <h3>{price}</h3>
+        </div>
       </Link>
+      <h2>{title}</h2>
+      <h3>{price}</h3>
     </ProductStyle>
   );
 }

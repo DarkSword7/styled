@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <>
       <title>Products</title>
+
       <main>
-        <h1>Products</h1>
         <Gallary>
           {products.map((product) => (
             <Products key={product.attributes.title} product={product} />
