@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
+import { getSession } from "@auth0/nextjs-auth0";
 const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
 
 export async function POST(req) {
@@ -10,11 +11,15 @@ export async function POST(req) {
   const { origin } = url;
   const pathUrl = origin;
 
+  const { user } = await getSession();
+  console.log(user);
+
   if (req.method === "POST") {
     try {
       const session = await stripe.checkout.sessions.create({
         submit_type: "pay",
         mode: "payment",
+        customer_email: user.email,
         payment_method_types: ["card"],
         shipping_address_collection: {
           allowed_countries: ["IN", "US"],
