@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.4",
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.5.0",
     "framer-motion": "^11.2.10",

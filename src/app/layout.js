@@ -5,21 +5,24 @@ import { Inter } from "next/font/google";
 import "../../styles/globals.css";
 import Nav from "@/components/Nav";
 import { StateContext } from "../../lib/context";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   return (
     <StateContext>
-      <ApolloProvider client={client}>
-        <html lang="en">
-          <title>Next.js with Strapi</title>
-          <body className={inter.className} suppressHydrationWarning={true}>
-            <Nav />
-            {children}
-          </body>
-        </html>
-      </ApolloProvider>
+      <UserProvider>
+        <ApolloProvider client={client}>
+          <html lang="en">
+            <title>Next.js with Strapi</title>
+            <body className={inter.className} suppressHydrationWarning={true}>
+              <Nav />
+              {children}
+            </body>
+          </html>
+        </ApolloProvider>
+      </UserProvider>
     </StateContext>
   );
 }
