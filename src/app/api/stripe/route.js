@@ -19,6 +19,8 @@ export async function POST(req) {
         shipping_address_collection: {
           allowed_countries: ["IN", "US"],
         },
+        allow_promotion_codes: true,
+        shipping_options: [{ shipping_rate: "shr_1POxszSIaPqg07jYkNpCLw8K" }],
         line_items: res.map((item) => {
           return {
             price_data: {
@@ -28,6 +30,10 @@ export async function POST(req) {
                 images: [item.image.data.attributes.formats.thumbnail.url],
               },
               unit_amount: item.price * 100,
+            },
+            adjustable_quantity: {
+              enabled: true,
+              minimum: 1,
             },
             quantity: item.quantity,
           };
