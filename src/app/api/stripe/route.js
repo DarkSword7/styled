@@ -20,7 +20,10 @@ export async function POST(req) {
           allowed_countries: ["IN", "US"],
         },
         allow_promotion_codes: true,
-        shipping_options: [{ shipping_rate: "shr_1POxszSIaPqg07jYkNpCLw8K" }],
+        shipping_options: [
+          { shipping_rate: "shr_1POxszSIaPqg07jYkNpCLw8K" },
+          { shipping_rate: "shr_1POy1jSIaPqg07jYSCMj2qMJ" },
+        ],
         line_items: res.map((item) => {
           return {
             price_data: {
