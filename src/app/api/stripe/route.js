@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import Stripe from "stripe";
 const stripe = new Stripe(`${process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY}`);
 
@@ -42,7 +42,7 @@ export async function POST(req) {
           };
         }),
         mode: "payment",
-        success_url: `${pathUrl}/success`,
+        success_url: `${pathUrl}/success?&session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${pathUrl}/cancel`,
       });
       return NextResponse.json(session, { status: 200 });
