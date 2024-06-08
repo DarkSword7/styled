@@ -10,12 +10,19 @@ import {
 } from "../../../../styles/ProductDetails";
 import { CircleMinus, CirclePlus } from "lucide-react";
 import { useStateContext } from "../../../../lib/context";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 export default function ProductDetails({ params }) {
   //   get the id from the params
   const { id } = params;
   //   get the quantity from the context
-  const { quantity, increaseQty, decreaseQty, onAdd } = useStateContext();
+  const { quantity, increaseQty, decreaseQty, onAdd, setQuantity } =
+    useStateContext();
+
+  useEffect(() => {
+    setQuantity(1);
+  }, [setQuantity]);
   //   fetch the product data from the query
   const { data, loading, error } = useQuery(GET_PRODUCT_QUERY, {
     variables: { slug: id },
@@ -25,6 +32,10 @@ export default function ProductDetails({ params }) {
 
   if (error) return <p>Error: {error.message}</p>;
   const { title, description, image } = data.products.data[0].attributes;
+
+  // add toast notification
+  const notify = () =>
+    toast.success(`${title} Added to cart`, { duration: 1500 });
 
   return (
     <DetailsStyle>
@@ -43,7 +54,12 @@ export default function ProductDetails({ params }) {
             <CirclePlus />
           </button>
         </Quantity>
-        <Buy onClick={() => onAdd(data.products.data[0].attributes, quantity)}>
+        <Buy
+          onClick={() => {
+            onAdd(data.products.data[0].attributes, quantity);
+            notify();
+          }}
+        >
           Add to Cart
         </Buy>
       </ProductInfo>
