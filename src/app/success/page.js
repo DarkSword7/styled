@@ -1,6 +1,7 @@
 // app/success/page.js
 "use client";
 
+import { Suspense } from "react";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -9,7 +10,7 @@ import shibainu from "../../../public/shibainu.png";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-export default function Success() {
+const SuccessContent = () => {
   const searchParams = useSearchParams();
   const session_id = searchParams.get("session_id");
   const [order, setOrder] = useState(null);
@@ -74,6 +75,16 @@ export default function Success() {
         <Image src={shibainu} alt="shiba-inu" priority />
       </Card>
     </Wrapper>
+  );
+};
+
+export default function Success() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      {" "}
+      {/* Provide a fallback UI */}
+      <SuccessContent />
+    </Suspense>
   );
 }
 
